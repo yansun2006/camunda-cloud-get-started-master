@@ -1,0 +1,80 @@
+package com.leyantech.zeebedemo;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class ZeebeDemoApplicationTests {
+
+	private String test = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+			+ "<bpmn:definitions xmlns:bpmn=\"http://www.omg.org/spec/BPMN/20100524/MODEL\" xmlns:bpmndi=\"http://www.omg.org/spec/BPMN/20100524/DI\" xmlns:dc=\"http://www.omg.org/spec/DD/20100524/DC\" xmlns:di=\"http://www.omg.org/spec/DD/20100524/DI\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:zeebe=\"http://camunda.org/schema/zeebe/1.0\" id=\"Definitions_0o87biy\" targetNamespace=\"http://bpmn.io/schema/bpmn\" exporter=\"Camunda Modeler\" exporterVersion=\"4.8.0-nightly.20210504\">\n"
+			+ "  <bpmn:process id=\"send-email\" name=\"Send Email\" isExecutable=\"true\">\n"
+			+ "    <bpmn:extensionElements>\n"
+			+ "      <zeebe:userTaskForm id=\"userTaskForm_15j79nd\">{\"components\":[{\"id\":\"textfield1\",\"key\":\"message_content\",\"label\":\"E-Mail Content\",\"type\":\"textfield\",\"parent\":\"default1\",\"path\":[\"components\",0],\"description\":\"Please enter the content of the E-Mail message\",\"validate\":{\"required\":true}}],\"type\":\"default\",\"id\":\"default1\",\"path\":[]}</zeebe:userTaskForm>\n"
+			+ "    </bpmn:extensionElements>\n"
+			+ "    <bpmn:startEvent id=\"StartEvent\" name=\"Start\">\n"
+			+ "      <bpmn:outgoing>Flow_19f2xg6</bpmn:outgoing>\n"
+			+ "    </bpmn:startEvent>\n"
+			+ "    <bpmn:sequenceFlow id=\"Flow_19f2xg6\" sourceRef=\"StartEvent\" targetRef=\"enterMessageTask\" />\n"
+			+ "    <bpmn:sequenceFlow id=\"Flow_0xoo3ml\" sourceRef=\"enterMessageTask\" targetRef=\"sendEmailTask\" />\n"
+			+ "    <bpmn:serviceTask id=\"sendEmailTask\" name=\"Send Email\">\n"
+			+ "      <bpmn:extensionElements>\n"
+			+ "        <zeebe:taskDefinition type=\"email\" retries=\"\" />\n"
+			+ "      </bpmn:extensionElements>\n"
+			+ "      <bpmn:incoming>Flow_0xoo3ml</bpmn:incoming>\n"
+			+ "      <bpmn:outgoing>Flow_156f3q7</bpmn:outgoing>\n"
+			+ "    </bpmn:serviceTask>\n"
+			+ "    <bpmn:endEvent id=\"EndEvent\" name=\"End\">\n"
+			+ "      <bpmn:incoming>Flow_156f3q7</bpmn:incoming>\n"
+			+ "    </bpmn:endEvent>\n"
+			+ "    <bpmn:userTask id=\"enterMessageTask\" name=\"Enter Message\">\n"
+			+ "      <bpmn:extensionElements>\n"
+			+ "        <zeebe:taskDefinition type=\"humanTask\" />\n"
+			+ "        <zeebe:formDefinition formKey=\"camunda-forms:bpmn:userTaskForm_15j79nd\" />\n"
+			+ "      </bpmn:extensionElements>\n"
+			+ "      <bpmn:incoming>Flow_19f2xg6</bpmn:incoming>\n"
+			+ "      <bpmn:outgoing>Flow_0xoo3ml</bpmn:outgoing>\n"
+			+ "    </bpmn:userTask>\n"
+			+ "    <bpmn:sequenceFlow id=\"Flow_156f3q7\" sourceRef=\"sendEmailTask\" targetRef=\"EndEvent\" />\n"
+			+ "  </bpmn:process>\n"
+			+ "  <bpmndi:BPMNDiagram id=\"BPMNDiagram_1\">\n"
+			+ "    <bpmndi:BPMNPlane id=\"BPMNPlane_1\" bpmnElement=\"send-email\">\n"
+			+ "      <bpmndi:BPMNEdge id=\"Flow_156f3q7_di\" bpmnElement=\"Flow_156f3q7\">\n"
+			+ "        <di:waypoint x=\"548\" y=\"160\" />\n"
+			+ "        <di:waypoint x=\"622\" y=\"160\" />\n"
+			+ "      </bpmndi:BPMNEdge>\n"
+			+ "      <bpmndi:BPMNEdge id=\"Flow_0xoo3ml_di\" bpmnElement=\"Flow_0xoo3ml\">\n"
+			+ "        <di:waypoint x=\"369\" y=\"160\" />\n"
+			+ "        <di:waypoint x=\"448\" y=\"160\" />\n"
+			+ "      </bpmndi:BPMNEdge>\n"
+			+ "      <bpmndi:BPMNEdge id=\"Flow_19f2xg6_di\" bpmnElement=\"Flow_19f2xg6\">\n"
+			+ "        <di:waypoint x=\"195\" y=\"160\" />\n"
+			+ "        <di:waypoint x=\"269\" y=\"160\" />\n"
+			+ "      </bpmndi:BPMNEdge>\n"
+			+ "      <bpmndi:BPMNShape id=\"_BPMNShape_StartEvent_2\" bpmnElement=\"StartEvent\">\n"
+			+ "        <dc:Bounds x=\"159\" y=\"142\" width=\"36\" height=\"36\" />\n"
+			+ "        <bpmndi:BPMNLabel>\n"
+			+ "          <dc:Bounds x=\"165\" y=\"185\" width=\"24\" height=\"14\" />\n"
+			+ "        </bpmndi:BPMNLabel>\n"
+			+ "      </bpmndi:BPMNShape>\n"
+			+ "      <bpmndi:BPMNShape id=\"Activity_06u1rs5_di\" bpmnElement=\"sendEmailTask\">\n"
+			+ "        <dc:Bounds x=\"448\" y=\"120\" width=\"100\" height=\"80\" />\n"
+			+ "      </bpmndi:BPMNShape>\n"
+			+ "      <bpmndi:BPMNShape id=\"Event_1oy8ygp_di\" bpmnElement=\"EndEvent\">\n"
+			+ "        <dc:Bounds x=\"622\" y=\"142\" width=\"36\" height=\"36\" />\n"
+			+ "        <bpmndi:BPMNLabel>\n"
+			+ "          <dc:Bounds x=\"630\" y=\"185\" width=\"20\" height=\"14\" />\n"
+			+ "        </bpmndi:BPMNLabel>\n"
+			+ "      </bpmndi:BPMNShape>\n"
+			+ "      <bpmndi:BPMNShape id=\"Activity_0s2tnku_di\" bpmnElement=\"enterMessageTask\">\n"
+			+ "        <dc:Bounds x=\"269\" y=\"120\" width=\"100\" height=\"80\" />\n"
+			+ "      </bpmndi:BPMNShape>\n"
+			+ "    </bpmndi:BPMNPlane>\n"
+			+ "  </bpmndi:BPMNDiagram>\n"
+			+ "</bpmn:definitions>\n";
+
+	@Test
+	void contextLoads() {
+	}
+
+}
